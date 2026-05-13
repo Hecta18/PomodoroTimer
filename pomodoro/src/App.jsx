@@ -1,7 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 
 function PomodoroTimer() {
   // variables
@@ -10,7 +7,7 @@ function PomodoroTimer() {
   const intervalRef = useRef(null)
 
   // functions
-  const TimerP = useEffect(() => {
+  useEffect(() => {
     if (isRunning && timeLeft > 0) {
       const setInterval = setTimeLeft(prevTime => prevTime - 1)
     } else if (timeLeft === 0) {
