@@ -1,20 +1,26 @@
 import { useState, useEffect, useRef } from 'react'
 
+// variables globales
+const WORK_TIME = 1500
+const BREAK_TIME = 300
+
 function PomodoroTimer() {
   // variables
-  const [timeLeft, setTimeLeft] = useState(1500)
+  const [timeLeft, setTimeLeft] = useState(WORK_TIME)
   const [isRunning, setIsRunning] = useState(false)
   const intervalRef = useRef(null)
 
   // functions
   useEffect(() => {
     if (isRunning && timeLeft > 0) {
-      const setInterval = setTimeLeft(prevTime => prevTime - 1)
+      intervalRef.current = setInterval(() => {
+        setTimeLeft(prevTime => prevTime - 1)
+      }, 1000)
     } else if (timeLeft === 0) {
       setIsRunning(false)
     }
     return () => clearInterval(intervalRef.current)
-  }), [isRunning, timeLeft]
+  }, [isRunning, timeLeft])
 
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60)
@@ -27,7 +33,7 @@ function PomodoroTimer() {
   }
 
   function resetTimer() {
-    setTimeLeft(1500)
+    setTimeLeft(WORK_TIME)
     setIsRunning(false)
   }
 
